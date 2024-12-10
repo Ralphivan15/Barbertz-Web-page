@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Changa:wght@400;700&family=Kumbh+Sans:wght@400;500;700;800;900&family=Poppins:wght@400;500;600;800&family=Rubik+Iso&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <title>Barbertz</title>
+</head>
+<body class="res">
+    <section>
+        <header>
+            <h2> <a href="index.html" class="logo">Barbertz</a></h2>
+            <div class="navigation3">
+                <a href="index.html">Home</a>
+                <div class="dropdown">
+                    <button class="dropbtn3">Menu</button>
+                    <div class="dropdown-content">
+                        <a href="service.html">SERVICES</a>
+                        <a href="product.html">PRODUCTS</a>
+                    </div>
+                </div>
+                <a href="appointment.html">Appointment</a>
+                <a href="hairstyle.html">Hairstyles</a>
+                <a href="about_us.html">About Us</a>
+            </div>
+        </header>
+    <section class="banner">
+        <div class="card-container">
+            <div class="card-img">
+            </div>
+            <div class="card-content">
+                <form action="suc_res.html" method="post">
+
+                    <h3>Appointment Reservation Form</h3>
+                    <div class="form-field">
+                        <p>Name:</p>
+                        <input type="text" placeholder="enter your name" required>
+                    </div>
+                    <div class="form-field">
+                        <p>Email:</p>
+                        <input type="email" placeholder="enter your email address" required>
+                    </div>
+                    <div class="form-field">
+                        <p>Date:</p>
+                        <input type="date" required>
+                    </div>
+                    <div class="form-field">
+                        <p>Time:</p>
+                        <input type="time" min="08:00" max="17:00" required>
+                    </div>
+                    <div class="form-field">
+                        <p>Barber:</p>
+                        <select name="select" id="#">
+                            <option value="1">Andres</option>
+                            <option value="2">Erian</option>
+                            <option value="3">Joseph</option>
+                            <option value="4">Michael</option>
+                            <option value="5">Angela</option>
+                            <option value="6+">Patch</option>
+                        </select>
+                    </div>
+                    <button type="submit" id="submit-btn" class="submitBtn">Submit</button>
+                </form>
+            </div>
+        </div>
+    </section>
+    <section class="quote">
+        <div class="quote-content">
+            <h1>"See you soon."</h1>
+        </div>
+    </section>
+
+  
+    <footer class="footer">
+        <h2>This site uses a blend of real and fictional information. © 2024 Barbertz Expert Barbers . Designed by Kwek Corp.  </h2>
+    </footer>
+</body>
+
+<script>
+
+    
+    // Get the input fields and the submit button
+    const nameInput = document.getElementById('name-input');
+    const emailInput = document.getElementById('email-input');
+    const dateInput = document.getElementById('date-input');
+    const timeInput = document.getElementById('time-input');
+    const barberSelect = document.getElementById('barber-select');
+    const submitBtn = document.getElementById('submit-btn');
+
+    // Add event listeners to the input fields
+    nameInput.addEventListener('input', checkForm);
+    emailInput.addEventListener('input', checkForm);
+    dateInput.addEventListener('input', checkForm);
+    timeInput.addEventListener('input', checkForm);
+    barberSelect.addEventListener('change', checkForm);
+
+    // Function to check if all fields are filled and enable the submit button
+    function checkForm() {
+        if (
+            nameInput.value.trim() !== '' ||
+            emailInput.value.trim() !== '' ||
+            dateInput.value.trim() !== '' ||
+            timeInput.value.trim() !== '' ||
+            barberSelect.value !== ''
+        ) {
+            submitBtn.disabled = false;
+        } else {
+            submitBtn.disabled = true;
+        }
+    }
+
+
+</script>
+
+</html>
