@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Barbertz</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0">
+
+</head>
+<body>
+    <section class="main">
+    <header>
+        <h2> <a href="index.html" class="logo">Barbertz</a></h2>
+    </section>
+
+    <div class="bodychat">
+        
+        <button class="chatbot-toggler">
+            <span class="material-symbols-outlined">comment</span>
+            <span class="material-symbols-outlined">close</span>
+        </button>
+        <div class="chatbot">
+            <header>
+                <h2>BarBot AI</h2>
+                <span class="close-btn material-symbols-outlined">close</span>
+            </header>
+                <ul class="chatbox">
+                    <li class="chat incoming">
+                        <span class="material-symbols-outlined">smart_toy</span>
+                        <p>Hi there! <br>How Can I help you?</p>
+                    </li>
+                </ul>
+                <div class="chat-input">
+                    <textarea placeholder="enter a message..." required></textarea>
+                    <span id="send-btn" class="material-symbols-outlined">send</span>
+                </div>
+            
+        </div>
+    </div>
+
+</body>
+
+<script>
+    const chatInput = document.querySelector(".chat-input textarea");
+const sendChatButton = document.querySelector(".chat-input span");
+const chatBox = document.querySelector(".chatbox");
+const chatbotToggler = document.querySelector(".chatbot-toggler");
+const chatbotCloseBtn = document.querySelector(".close-btn");
+
+let userMessage;
+const inputInitHeight = chatInput.scrollHeight;
+
+// Predefined questions and answers with keywords
+const predefinedResponses = [
+    { keywords: ["thank you","thankies","thanks"], response: "Happy to help!"},
+    { keywords: ["your location","location","where"], response: "We are located in Pax Building, JL De Guzman Street, Mangaldan Pangasinan"},
+    { keywords: ["open in holidays"], response: "We are close every holidays"},
+    { keywords: ["working hours", "hours", "time","when are you open", "when","open"], response: "We are open through Monday to Saturday from 8 am to 5pm" },
+    { keywords: ["contact support", "support","contacts","contact"], response: "Please contact support at 0917 533 3552 or renevisperas23@yahoo.com."},
+    { keywords: ["credit card", "card", "payment"], response: "We accept cash, credit cards and GCash Payment"},
+    { keywords: ["price","how much"], response: "It depends on the style of your haircut" },
+    { keywords: ["hiring","hiring barbers"], response: "We are not hiring barbers as of today, but we are hiring a manicurist" },
+    { keywords: ["discount"], response: "Yes, we have a 10% discount to Students and Senior Citizens " },
+    { keywords: ["items","products"], response: "We sell items like Gel and Wax" },
+    { keywords: ["equipment works", "works properly", "equipment properly"], response: "Of course, everyday we clean our equipment before using " },
+    { keywords: ["haircut","haircut options"], response: "We have different choices of haircut here" },
+    { keywords: ["open every day", "open every"], response: "We are open only on Monday to Saturday" },
+    { keywords: ["Air-conditioned"], response: "Yes, out barber shop is Air-conditioned" },
+    { keywords: ["wifi", "free wifi"], response: "We have a Free wifi here and of course we have a TV, Music to relieve your boredom while waiting" },
+    { keywords: ["parking","parkinglot"], response: "We have a parking lot for cars at motorcycle " },
+    { keywords: ["home service","service at home"], response: "We do a home service" },
+    { keywords: ["accept reservation", "reservation","vip"], response: "We accept reservation here just message us on Facebook or Contact us" },
+    { keywords: ["promo","special offer","limited offer"], response: "We have a promo of free haircut and shave every anniversary of our shop" },
+    { keywords: ["hello", "hi"], response: "Hello, how can I help you?" },
+    { keywords: ["how long does it take","how much time","how long"], response: "It depends on your haircut"},
+    { keywords: ["who are the barbers","which barber"], response: "Please contact 0917 533 3552 or renevisperas23@yahoo.com for further deatils" },
+    { keywords: ["list of haircut"], response: "Please contact 0917 533 3552 or renevisperas23@yahoo.com for further deatils" },
+];
+
+const createChatLi = (message, className) => {
+    const chatLi = document.createElement("li");
+    chatLi.classList.add("chat", className);
+    let chatContent = className === "outgoing" ? `<p></p>` : `<span class="material-symbols-outlined">smart_toy</span><p></p>`;
+    chatLi.innerHTML = chatContent;
+    chatLi.querySelector("p").textContent = message;
+    return chatLi;
+}
+
+const getBotResponse = (userMessage) => {
+    const lowerUserMessage = userMessage.toLowerCase();
+
+    for (const { keywords, response } of predefinedResponses) {
+        for (const keyword of keywords) {
+            if (lowerUserMessage.includes(keyword)) {
+                return response;
+            }
+        }
+    }
+    return "Sorry I can't process that, for further assistance please contact support at 0917 533 3552 or renevisperas23@yahoo.com.";
+}
+
+const handleChat = () => {
+    userMessage = chatInput.value.trim();
+    if (!userMessage) return;
+    chatInput.value = "";
+    chatInput.style.height = `${inputInitHeight}px`;
+
+    chatBox.appendChild(createChatLi(userMessage, "outgoing"));
+    chatBox.scrollTo(0, chatBox.scrollHeight);
+
+    setTimeout(() => {
+        let botResponse = getBotResponse(userMessage);
+        chatBox.appendChild(createChatLi(botResponse, "incoming"));
+        chatBox.scrollTo(0, chatBox.scrollHeight);
+    }, 600);
+}
+
+sendChatButton.addEventListener("click", handleChat);
+
+chatInput.addEventListener("input", () => {
+    chatInput.style.height = `${inputInitHeight}px`;
+    chatInput.style.height = `${chatInput.scrollHeight}px`;
+});
+
+chatInput.addEventListener("keydown", (e) => {
+    if (e.key === "Enter" && !e.shiftKey && window.innerWidth > 800) {
+        e.preventDefault();
+        handleChat();
+    }
+});
+
+chatbotCloseBtn.addEventListener("click", () => document.body.classList.remove("show-chatbot"));
+chatbotToggler.addEventListener("click", () => document.body.classList.toggle("show-chatbot"));
+
+</script>
+</html>
